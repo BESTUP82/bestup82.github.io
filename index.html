@@ -64,7 +64,15 @@
         .form-group button:hover {
             background-color: #0056b3;
         }
+		.topimfo {
+			max-width: 960px;
+			margin: auto;
+			text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+		}
         @media (max-width: 767px) {
+			.header {
+				height: 150px;
+			}
             .form-group input {
                 flex-basis: 100%; /* Each input takes full width on smaller screens */
                 margin-right: 0; /* No margin since each input is full width */
@@ -73,13 +81,25 @@
 			.form-group {
 				margin-bottom: 0px;
 			}
+			.topimfo {
+
+			}
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>베스트온 멤버십 신청 444</h1>
+        <h1>베스트온 멤버십 신청 555</h1>
     </div>
+	<div class="topimfo">
+		베스트업 자산운용
+	</div>
+	<div class="topimfo1">
+		멤버십 신청  정보 입력
+	</div>
+	<div class="topimfo2">
+		아래에 신청인 정보를 입력후 신청버튼을 클릭하세요.
+	</div>
     <div class="container">
         <form id="membershipForm">
             <div class="form-group">
@@ -104,6 +124,12 @@
             <button type="submit">멤버십 신청</button>
         </form>
     </div>
+	<div class="downimfo1">
+		​※ 회원 성함과 예금주가 동일하지 않을경우 및 휴대폰 명의자가 다를경우 이용이 제한될수 있습니다.
+	</div>
+	<div class="downimfo2">
+		​※ 신청이 완료되면 검수후 고객님의 이메일로 HTS프로그램을 보내드리며 ​추가 문의 사항은 고객센터 상담원을 통해 상담이 가능하십니다
+	</div>
     <script>
         $(document).ready(function() {
             $('#phone').on('input', function() {
