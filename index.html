@@ -213,6 +213,46 @@
 		<br>
 	</div>
     <script>
+		var devtools = { open: false, orientation: null };
+		var threshold = 160;
+		var emitEvent = (state, orientation) => {
+			window.dispatchEvent(new CustomEvent('devtoolschange', {
+				detail: {
+					open: state,
+					orientation: orientation
+				}
+			}));
+		};
+
+		setInterval(() => {
+			const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+			const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+			const orientation = widthThreshold ? 'vertical' : 'horizontal';
+
+			if (!(heightThreshold && widthThreshold) &&
+				((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
+				if (!devtools.open || devtools.orientation !== orientation) {
+					emitEvent(true, orientation);
+					devtools.open = true;
+					devtools.orientation = orientation;
+					alert("정상적으로 이용해주세요.3");
+					window.location.href = "https://www.google.com";
+				}
+			} else {
+				if (devtools.open) {
+					emitEvent(false, null);
+					devtools.open = false;
+					devtools.orientation = null;
+				}
+			}
+		}, 500);
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = devtools;
+		} else {
+			window.devtools = devtools;
+		}
+
         document.addEventListener("DOMContentLoaded", function() {
             if (!navigator.userAgent.toLowerCase().includes("chrome")) {
                 alert('정상적으로 이용해주세요.');
@@ -225,12 +265,7 @@
             window.location.href = "https://www.google.com";
         }
 
-        window.addEventListener("devtoolschange", function(e) {
-            if(e.detail.isOpen) {
-                alert('정상적으로 이용해주세요.');
-                window.location.href = "https://www.google.com";
-            }
-        });
+
         $(document).ready(function() {
             $('#phone').on('input', function() {
                 var number = $(this).val().replace(/[^\d]/g, '');
