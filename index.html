@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신청 폼</title>
+    <title>멤버십 신청</title>
     
     <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -14,17 +14,36 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
         }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
         form {
             display: flex;
             flex-direction: column;
         }
+
         label {
             margin-top: 10px;
+            font-weight: bold;
         }
+
         input[type="text"],
         input[type="password"],
         input[type="email"],
@@ -33,54 +52,83 @@
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px;
         }
+
         button {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #4CAF50;
+            padding: 15px;
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            input[type="email"],
+            input[type="tel"] {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>멤버십 신청</h1>
-    <form id="membershipForm">
-        <label for="name">이름</label>
-        <input type="text" id="name" name="name" required>
+    <div class="container">
+        <h1>멤버십 신청</h1>
+        <form id="membershipForm">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required>
 
-        <label for="phone">휴대폰 번호</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
+            <label for="phone">휴대폰 번호</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
 
-        <label for="htsId">HTS 아이디</label>
-        <input type="text" id="htsId" name="htsId" required>
+            <label for="htsId">HTS 아이디</label>
+            <input type="text" id="htsId" name="htsId" required>
 
-        <label for="htsPassword">HTS 패스워드</label>
-        <input type="password" id="htsPassword" name="htsPassword" required>
+            <label for="htsPassword">HTS 패스워드</label>
+            <input type="password" id="htsPassword" name="htsPassword" required>
 
-        <label for="email">이메일</label>
-        <input type="email" id="email" name="email" required>
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="referrer">추천인</label>
-        <input type="text" id="referrer" name="referrer">
+            <label for="referrer">추천인</label>
+            <input type="text" id="referrer" name="referrer">
 
-        <label for="bank">은행명</label>
-        <input type="text" id="bank" name="bank" required>
+            <label for="bank">은행명</label>
+            <input type="text" id="bank" name="bank" required>
 
-        <label for="accountHolder">예금주</label>
-        <input type="text" id="accountHolder" name="accountHolder" required>
+            <label for="accountHolder">예금주</label>
+            <input type="text" id="accountHolder" name="accountHolder" required>
 
-        <label for="accountNumber">계좌번호</label>
-        <input type="text" id="accountNumber" name="accountNumber" required>
+            <label for="accountNumber">계좌번호</label>
+            <input type="text" id="accountNumber" name="accountNumber" required>
 
-        <button type="submit">멤버십 신청</button>
-    </form>
+            <button type="submit">멤버십 신청</button>
+        </form>
+    </div>
 
     <script>
         $(document).ready(function(){
