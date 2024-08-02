@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Devtools Detect CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/devtools-detect@1.2.0/dist/devtools-detect.min.js"></script>
     <style>
         body, html {
             font-family: 'Noto Sans KR', sans-serif;
@@ -128,7 +130,7 @@
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="header">
-        <h1>베스트업 멤버십 신청 2</h1>
+        <h1>베스트업 멤버십 신청.</h1>
     </div>
     <div class="topimfo">
         베스트업 자산운용
@@ -173,29 +175,14 @@
         <br>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Developer Tools Detection
-            var devtoolsOpen = false;
-            var threshold = 160;
-            setInterval(function() {
-                // Check if developer tools is open by comparing window dimensions
-                var devtools = ((window.outerWidth - window.innerWidth) > threshold) || ((window.outerHeight - window.innerHeight) > threshold);
-                if (devtools) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        alert('정상적으로 이용해주세요.');
-                        window.location.href = "https://www.google.com";
-                    }
-                } else {
-                    devtoolsOpen = false;
+        $(document).ready(function() {
+            // Developer Tools Detection using devtools-detect
+            window.addEventListener('devtoolschange', event => {
+                if (event.detail.open) {
+                    alert('정상적으로 이용해주세요.');
+                    window.location.href = "https://www.google.com";
                 }
-            }, 1000);
-
-            // Check if JavaScript is disabled
-            if (typeof jQuery === 'undefined') {
-                alert('정상적으로 이용해주세요.');
-                window.location.href = "https://www.google.com";
-            }
+            });
 
             $('#phone').on('input', function() {
                 var number = $(this).val().replace(/[^\d]/g, '');
